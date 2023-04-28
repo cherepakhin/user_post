@@ -19,8 +19,7 @@ class PostRepositoryImpl : PostRepository {
     val posts = listOf<PostEntity>(post1, post2)
 
     override fun getById(id: Long): PostEntity {
-        val post = posts.filter { it.id.equals(id) }.getOrElse(0) { emptyPost }
-        return post
+        return posts.filter { it.id.equals(id) }.getOrElse(0) { emptyPost }
     }
 
     override fun getAll(): List<PostEntity> {
