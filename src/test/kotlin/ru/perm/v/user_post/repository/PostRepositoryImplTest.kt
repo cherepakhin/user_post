@@ -42,12 +42,15 @@ internal class PostRepositoryImplTest {
     @Test
     fun create() {
         val postRepository = PostRepositoryImpl()
-        val sizeBefore = postRepository.getAll()
+        val sizeBefore = postRepository.getAll().size
         val ID = 101L
         val CONTENT = "NAME_101"
         val TITLE = "TITLE_101"
         val AUTHOR = UserEntity(1, "AUTHOR_NAME", "AUTHOR_EMAIL")
+
         val post = postRepository.create(ID, TITLE, CONTENT, AUTHOR)
         assertEquals(PostEntity(ID, TITLE, CONTENT, AUTHOR), post)
+
+        assertEquals(sizeBefore + 1, postRepository.getAll().size)
     }
 }

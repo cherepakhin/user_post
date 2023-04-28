@@ -31,7 +31,9 @@ class PostRepositoryImpl : PostRepository {
     }
 
     override fun create(id: Long, title: String, content: String, author: UserEntity): PostEntity {
-        return PostEntity(id, title, content, author)
+        val newPost = PostEntity(id, title, content, author)
+        posts.add(newPost)
+        return newPost
     }
 
 }
