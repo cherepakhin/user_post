@@ -16,14 +16,14 @@ class PostRepositoryImpl : PostRepository {
     val post1 = PostEntity(1,"TITLE_1","CONTENT_1", user1)
     val post2 = PostEntity(2,"TITLE_2","CONTENT_2", user2)
 
+    val posts = listOf<PostEntity>(post1, post2)
     override fun getById(id: Long): PostEntity {
         TODO("change returned EmptyPost")
         return emptyPost
     }
 
     override fun getAll(): List<PostEntity> {
-        TODO("change returned list EmptyPost")
-        return listOf(post1, post2)
+        return posts
     }
 
     override fun deleteById(id: Long) {
