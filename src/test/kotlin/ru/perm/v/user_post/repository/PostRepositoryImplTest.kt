@@ -32,8 +32,9 @@ internal class PostRepositoryImplTest {
         val size = postRepository.getAll().size
         val DELETED_POST_ID = 2L
         postRepository.deleteById(DELETED_POST_ID)
-        assertEquals(size-1, postRepository.getAll().size)
+        assertEquals(size - 1, postRepository.getAll().size)
 
+        // Проверка, что по DELETED_POST_ID возвращается пустой пост
         val userEmpty = UserEntity(-1, "-", "-")
         assertEquals(PostEntity(-1, "-", "-", userEmpty), postRepository.getById(DELETED_POST_ID))
     }

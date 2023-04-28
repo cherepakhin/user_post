@@ -27,7 +27,7 @@ class PostRepositoryImpl : PostRepository {
 
     override fun deleteById(id: Long) {
         val post = getById(id)
-        posts.remove(post)
+        if (!post.equals(emptyPost)) posts.remove(post)
     }
 
     override fun create(id: Long, title: String, content: String, author: UserEntity): PostEntity {
