@@ -10,16 +10,17 @@ import ru.perm.v.user_post.entity.UserEntity
 @Component
 class PostRepositoryImpl : PostRepository {
     val userEmpty = UserEntity(-1, "-", "-")
-    val user1 = UserEntity(1,"NAME_1", "EMAIL_1")
-    val user2 = UserEntity(2,"NAME_2", "EMAIL_2")
+    val user1 = UserEntity(1, "NAME_1", "EMAIL_1")
+    val user2 = UserEntity(2, "NAME_2", "EMAIL_2")
     val emptyPost = PostEntity(-1, "-", "-", userEmpty)
-    val post1 = PostEntity(1,"TITLE_1","CONTENT_1", user1)
-    val post2 = PostEntity(2,"TITLE_2","CONTENT_2", user2)
+    val post1 = PostEntity(1, "TITLE_1", "CONTENT_1", user1)
+    val post2 = PostEntity(2, "TITLE_2", "CONTENT_2", user2)
 
     val posts = listOf<PostEntity>(post1, post2)
+
     override fun getById(id: Long): PostEntity {
-        TODO("change returned EmptyPost")
-        return emptyPost
+        val post = posts.filter { it.id.equals(id) }.getOrElse(0) { emptyPost }
+        return post
     }
 
     override fun getAll(): List<PostEntity> {

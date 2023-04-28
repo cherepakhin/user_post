@@ -11,4 +11,16 @@ internal class PostRepositoryImplTest {
         val postRepository = PostRepositoryImpl()
         assertEquals(2, postRepository.getAll().size)
     }
+
+    @Test
+    fun getById() {
+        val postRepository = PostRepositoryImpl()
+        assertEquals(2L, postRepository.getById(2L).id)
+    }
+
+    @Test
+    fun getByIdNotExist() {
+        val postRepository = PostRepositoryImpl()
+        assertEquals(-1L, postRepository.getById(100L).id)
+    }
 }
