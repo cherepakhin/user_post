@@ -38,4 +38,16 @@ internal class PostRepositoryImplTest {
         val userEmpty = UserEntity(-1, "-", "-")
         assertEquals(PostEntity(-1, "-", "-", userEmpty), postRepository.getById(DELETED_POST_ID))
     }
+
+    @Test
+    fun create() {
+        val postRepository = PostRepositoryImpl()
+        val sizeBefore = postRepository.getAll()
+        val ID = 101L
+        val CONTENT = "NAME_101"
+        val TITLE = "TITLE_101"
+        val AUTHOR = UserEntity(1, "AUTHOR_NAME", "AUTHOR_EMAIL")
+        val post = postRepository.create(ID, TITLE, CONTENT, AUTHOR)
+        assertEquals(PostEntity(ID, TITLE, CONTENT, AUTHOR), post)
+    }
 }
