@@ -1,6 +1,5 @@
 package ru.perm.v.user_post.repository
 
-import org.apache.catalina.User
 import org.springframework.stereotype.Component
 import ru.perm.v.user_post.entity.PostEntity
 import ru.perm.v.user_post.entity.UserEntity
@@ -16,7 +15,7 @@ class PostRepositoryImpl : PostRepository {
     val post1 = PostEntity(1, "TITLE_1", "CONTENT_1", user1)
     val post2 = PostEntity(2, "TITLE_2", "CONTENT_2", user2)
 
-    val posts = listOf<PostEntity>(post1, post2)
+    val posts = mutableListOf<PostEntity>(post1, post2)
 
     override fun getById(id: Long): PostEntity {
         return posts.filter { it.id.equals(id) }.getOrElse(0) { emptyPost }
@@ -27,7 +26,8 @@ class PostRepositoryImpl : PostRepository {
     }
 
     override fun deleteById(id: Long) {
-        TODO("Not yet implemented")
+        val post = getById(id)
+        posts.remove(post)
     }
 
     override fun create(id: Long, title: String, content: String, author: UserEntity): PostEntity {

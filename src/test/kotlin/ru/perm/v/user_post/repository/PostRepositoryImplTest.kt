@@ -3,6 +3,8 @@ package ru.perm.v.user_post.repository
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import ru.perm.v.user_post.entity.PostEntity
+import ru.perm.v.user_post.entity.UserEntity
 
 internal class PostRepositoryImplTest {
 
@@ -22,5 +24,17 @@ internal class PostRepositoryImplTest {
     fun getByIdNotExist() {
         val postRepository = PostRepositoryImpl()
         assertEquals(-1L, postRepository.getById(100L).id)
+    }
+
+    @Test
+    fun deleteById() {
+        val postRepository = PostRepositoryImpl()
+        val size = postRepository.getAll().size
+        val DELETED_POST_ID = 2L
+        postRepository.deleteById(DELETED_POST_ID)
+        assertEquals(size-1, postRepository.getAll().size)
+
+        val userEmpty = UserEntity(-1, "-", "-")
+        assertEquals(PostEntity(-1, "-", "-", userEmpty), postRepository.getById(DELETED_POST_ID))
     }
 }
