@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component
 import ru.perm.v.user_post.entity.PostEntity
 import ru.perm.v.user_post.entity.UserEntity
 
-//TODO: Временная имплементация вместо Spring Repository
+//TODO: Имплементация вместо Spring Repository
 //@Repository
 @Component
 class PostRepositoryImpl : PostRepository {
