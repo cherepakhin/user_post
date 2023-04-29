@@ -29,7 +29,7 @@ class PostServiceImpl(val postRepository: PostRepository) : PostService {
     }
 
     override fun deleteById(id: Long) {
-        TODO("Not yet implemented")
+        postRepository.deleteById(id)
     }
 
     override fun create(id: Long, name: String, email: String): PostDto {
