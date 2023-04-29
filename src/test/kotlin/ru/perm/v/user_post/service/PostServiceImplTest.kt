@@ -26,12 +26,14 @@ internal class PostServiceImplTest {
     @Test
     fun getById() {
         val post = postService.getById(1)
+
         assertEquals(1, post.id)
     }
 
     @Test
     fun getAll() {
         val posts = postService.getAll()
+
         assertEquals(2, posts.size)
         assertEquals(AUTHOR_ENTITY_1.id, posts.get(0).author.id)
         assertEquals(AUTHOR_ENTITY_2.id, posts.get(1).author.id)
