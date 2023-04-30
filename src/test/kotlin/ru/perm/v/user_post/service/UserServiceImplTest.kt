@@ -15,7 +15,7 @@ internal class UserServiceImplTest {
         on { getAll() } doReturn listOf(UserEntity(1, "-", "-"), UserEntity(2, "-", "-"))
         on { create(1, "NAME", "EMAIL") } doReturn UserEntity(1, "NAME", "EMAIL")
     }
-    val userService = UserServiceImpl(mockUserRepository)
+    private val userService = UserServiceImpl(mockUserRepository)
 
     @Test
     fun getById() {
@@ -40,6 +40,5 @@ internal class UserServiceImplTest {
     fun deleteById() {
         userService.deleteById(1)
         verify(mockUserRepository, times(1)).deleteById(1)
-
     }
 }

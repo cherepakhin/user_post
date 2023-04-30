@@ -4,6 +4,11 @@ import org.springframework.web.bind.annotation.*
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.service.UserService
 
+/**
+ * Rest-контроллер пользователей.
+ * Замечание: Контроллер обращается напрямую к слою Service и выполняет не только конвертацию в DTO,
+ * но и некоторые внутренние операции, ктр. д.б. в отдельном промежуточном слое. Сделано для простоты.
+ */
 @RestController
 @RequestMapping("/users")
 class UserController(private val userService: UserService) {

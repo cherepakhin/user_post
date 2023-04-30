@@ -7,6 +7,11 @@ import ru.perm.v.user_post.entity.PostEntity
 import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.service.PostService
 
+/**
+ * Rest-контроллер постов.
+ * Замечание: Контроллер обращается напрямую к слою Service и выполняет не только конвертацию в DTO,
+ * но и некоторые внутренние операции, ктр. д.б. в отдельном промежуточном слое. Сделано для простоты.
+ */
 @RestController
 @RequestMapping("/posts")
 class PostController(private val postService: PostService) {
