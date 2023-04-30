@@ -6,7 +6,6 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.repository.UserRepository
 
@@ -40,7 +39,7 @@ internal class UserServiceImplTest {
     @Test
     fun deleteById() {
         userService.deleteById(1)
-        verify(mockUserRepository,times(1)).deleteById(1)
+        verify(mockUserRepository, times(1)).deleteById(1)
 
     }
 }

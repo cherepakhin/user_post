@@ -1,6 +1,5 @@
 package ru.perm.v.user_post.service
 
-import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.UserEntity
 
 interface UserService {
