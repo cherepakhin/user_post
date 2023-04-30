@@ -29,15 +29,9 @@ class PostController(private val postService: PostService) {
         return PostDto(post.id, post.title, post.content, UserDto(post.author.id, post.author.name, post.author.email))
     }
 
-    @PostMapping("/")
+    @PutMapping("/")
     fun createPost(@RequestBody postDto: PostDto): PostDto {
-        val post = PostEntity(
-            postDto.id,
-            postDto.title,
-            postDto.content,
-            UserEntity(postDto.author.id, postDto.author.name, postDto.author.email),
-        )
-//        val savedPost = postRepository.save(post)
+        var post =postService.create(postDto.title, postDto.content, postDto.author.id)
         return PostDto(
             post.id,
             post.title,
@@ -46,7 +40,7 @@ class PostController(private val postService: PostService) {
         )
     }
 
-//    @PutMapping("/{id}")
+//    @PostMapping("/{id}")
 //    fun updatePost(@PathVariable id: Long, @RequestBody postDto: PostDto): PostDto {
 //        val existingPost =
 //            postRepository.findById(id).orElseThrow { EntityNotFoundException("Post not found with id $id") }

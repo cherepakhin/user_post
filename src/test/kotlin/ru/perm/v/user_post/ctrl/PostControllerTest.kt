@@ -2,20 +2,18 @@ package ru.perm.v.user_post.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.PostEntity
 import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.service.PostService
 
 internal class PostControllerTest {
-
-    val AUTOR_DTO_100 = UserDto(100, "USER_100", "EMAIL_100")
-    val AUTOR_DTO_200 = UserDto(200, "USER_200", "EMAIL_200")
-
-//    val POST_DTO_1 = PostDto(1, "TITLE_1", "CONTENT_1", AUTOR_DTO_100)
-//    val POST_DTO_2 = PostDto(2, "TITLE_2", "CONTENT_2", AUTOR_DTO_200)
 
     val AUTHOR_ENTITY_100 = UserEntity(100, "NAME_100", "EMAIL_100")
     val AUTHOR_ENTITY_200 = UserEntity(200, "NAME_200", "EMAIL_200")
@@ -33,5 +31,25 @@ internal class PostControllerTest {
     fun getPosts() {
         val posts = postController.getPosts()
         assertEquals(2, posts.size)
+    }
+
+    @Test
+    fun createPost() {
+        val TITLE = "TITLE"
+        val CONTENT = "CONTENT"
+        val AUTHOR_DTO = UserDto(100, "NAME_100", "EMAIL_100")
+        val postDto = PostDto(-1, TITLE, CONTENT, AUTHOR_DTO)
+        val AUTHOR_ENTITY = UserEntity(100, "NAME_100", "EMAIL_100")
+
+        Mockito.`when`(mockPostService.create(TITLE, CONTENT, AUTHOR_DTO.id))
+            .thenReturn(PostEntity(0, TITLE, CONTENT, AUTHOR_ENTITY))
+
+        val createdPost = postController.createPost(postDto)
+
+        assertEquals(TITLE, createdPost.title)
+        assertEquals(CONTENT, createdPost.content)
+        assertEquals(100, createdPost.author.id)
+
+        verify(mockPostService, times(1)).create(TITLE, CONTENT, AUTHOR_DTO.id)
     }
 }
