@@ -63,7 +63,6 @@ class PostController(private val postService: PostService) {
 //            UserDto(existingPost.author.id, existingPost.author.name, existingPost.author.email)
 //        )
         throw NotReleasedExcpt()
-//        return postDto
     }
 
 

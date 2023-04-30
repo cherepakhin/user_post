@@ -2,11 +2,13 @@ package ru.perm.v.user_post.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
+import ru.perm.v.user_post.ctrl.exception.NotReleasedExcpt
 import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.PostEntity
@@ -51,5 +53,16 @@ internal class PostControllerTest {
         assertEquals(100, createdPost.author.id)
 
         verify(mockPostService, times(1)).create(TITLE, CONTENT, AUTHOR_DTO.id)
+    }
+
+    @Test
+    fun updatePostTempExcpt() {
+        val TITLE = "TITLE"
+        val CONTENT = "CONTENT"
+        val AUTHOR_DTO = UserDto(0, "-", "-")
+        val postDto = PostDto(-1, TITLE, CONTENT, AUTHOR_DTO)
+        assertThrows<NotReleasedExcpt>() {
+            postController.updatePost(POST_ENTITY_100.id, postDto)
+        }
     }
 }
