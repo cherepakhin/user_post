@@ -1,9 +1,7 @@
 package ru.perm.v.user_post.ctrl
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.service.UserService
 
 @RestController
@@ -12,21 +10,23 @@ class UserController(private val userService: UserService) {
 
     @GetMapping("/")
     fun getUsers(): List<UserDto> {
-        return userService.getAll()
+        return userService.getAll().map { UserDto(it.id, it.name, it.email) }
     }
 
     @GetMapping("/{id}")
     fun getUserById(@PathVariable id: Long): UserDto {
-        return userService.getById(id)
+        val u = userService.getById(id)
+        return UserDto(u.id, u.name, u.email)
     }
 
     @PostMapping("/")
     fun createUser(@RequestBody userDto: UserDto): UserDto {
         val existingUser = userService.getById(userDto.id)
-        if(existingUser!=null) {
+        if (existingUser != null) {
             userService.deleteById(userDto.id)
         }
-        return userService.create(userDto.id, userDto.name, userDto.email);
+        val u = userService.create(userDto.id, userDto.name, userDto.email)
+        return UserDto(u.id, u.name, u.email)
     }
 
     @PutMapping("/{id}")

@@ -1,7 +1,11 @@
 package ru.perm.v.user_post.dto
 
+import ru.perm.v.user_post.entity.UserEntity
+
 data class UserDto(
     val id: Long,
     val name: String,
     val email: String
-)
+) {
+    constructor(user: UserEntity) : this(user.id, user.name, user.email)
+}

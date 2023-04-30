@@ -34,7 +34,7 @@ internal class UserServiceImplTest {
     @Test
     fun create() {
         val user = userService.create(1, "NAME", "EMAIL")
-        assertEquals(UserDto(1, "NAME", "EMAIL"), user)
+        assertEquals(UserEntity(1, "NAME", "EMAIL"), user)
     }
 
     @Test

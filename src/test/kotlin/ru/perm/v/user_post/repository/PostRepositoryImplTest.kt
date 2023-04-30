@@ -48,8 +48,8 @@ internal class PostRepositoryImplTest {
         val TITLE = "TITLE_101"
         val AUTHOR = UserEntity(1, "AUTHOR_NAME", "AUTHOR_EMAIL")
 
-        val post = postRepository.create(ID, TITLE, CONTENT, AUTHOR)
-        assertEquals(PostEntity(ID, TITLE, CONTENT, AUTHOR), post)
+        val post = postRepository.create(TITLE, CONTENT, AUTHOR)
+        assertEquals(PostEntity((sizeBefore + 1).toLong(), TITLE, CONTENT, AUTHOR), post)
 
         assertEquals(sizeBefore + 1, postRepository.getAll().size)
     }

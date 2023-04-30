@@ -1,12 +1,12 @@
 package ru.perm.v.user_post.service
 
 import org.springframework.stereotype.Service
-import ru.perm.v.user_post.dto.PostDto
+import ru.perm.v.user_post.entity.PostEntity
 
 @Service
 interface PostService {
-    fun getById(id: Long): PostDto;
-    fun getAll(): List<PostDto>;
+    fun getById(id: Long): PostEntity;
+    fun getAll(): List<PostEntity>;
     fun deleteById(id: Long);
-    fun create(id: Long, name: String, email: String): PostDto;
+    fun create(title: String, content: String, authorId: Long): PostEntity;
 }

@@ -12,8 +12,8 @@ import ru.perm.v.user_post.service.UserService
 internal class UserControllerTest {
 
     private val mockUserService = mock<UserService> {
-        on { getById(1) } doReturn UserDto(1, "-", "-")
-        on { getAll() } doReturn listOf(UserDto(1, "-", "-"), UserEntity(2, "-", "-")) as List<UserDto>
+        on { getById(1) } doReturn UserEntity(1, "-", "-")
+        on { getAll() } doReturn listOf(UserEntity(1, "-", "-"), UserEntity(2, "-", "-")) as List<UserEntity>
     }
     private val userController = UserController(mockUserService)
 

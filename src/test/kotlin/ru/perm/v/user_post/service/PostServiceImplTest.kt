@@ -21,7 +21,10 @@ internal class PostServiceImplTest {
             PostEntity(2, "TITLE_2", "CONTENT_2", AUTHOR_ENTITY_2)
         )
     }
-    val postService = PostServiceImpl(mockPostRepository)
+    val mockUserService = mock<UserService> {
+
+    }
+    val postService = PostServiceImpl(mockPostRepository, mockUserService)
 
     @Test
     fun getById() {
@@ -41,9 +44,19 @@ internal class PostServiceImplTest {
 
     @Test
     internal fun deleteById() {
-        val POST_ID:Long = 1L
+        val POST_ID: Long = 1L
         postService.deleteById(POST_ID)
 
-        verify(mockPostRepository, times(1) ).deleteById(POST_ID)
+        verify(mockPostRepository, times(1)).deleteById(POST_ID)
+    }
+
+    @Test
+    fun create() {
+        val TITLE = "title"
+        val CONTENT = "content"
+        val AUTHOR_ID = 0L
+        val post = postService.create(TITLE, CONTENT, AUTHOR_ID)
+
+        verify(mockUserService, times(1)).getById(AUTHOR_ID)
     }
 }
