@@ -1,10 +1,9 @@
 package ru.perm.v.user_post.ctrl
 
 import org.springframework.web.bind.annotation.*
+import ru.perm.v.user_post.ctrl.exception.NotReleasedExcpt
 import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.service.PostService
 
 /**
@@ -15,6 +14,10 @@ import ru.perm.v.user_post.service.PostService
 @RestController
 @RequestMapping("/posts")
 class PostController(private val postService: PostService) {
+
+    //TODO: Убрать. Сделаны временно
+    val emptyUser:UserDto = UserDto(-1,"-","-")
+    val emptyPost:PostDto = PostDto(-1,"-","-",emptyUser)
 
     @GetMapping("/")
     fun getPosts(): List<PostDto> {
@@ -29,9 +32,12 @@ class PostController(private val postService: PostService) {
         return PostDto(post.id, post.title, post.content, UserDto(post.author.id, post.author.name, post.author.email))
     }
 
+    /**
+     * Создание сообщения
+     */
     @PutMapping("/")
     fun createPost(@RequestBody postDto: PostDto): PostDto {
-        var post =postService.create(postDto.title, postDto.content, postDto.author.id)
+        var post = postService.create(postDto.title, postDto.content, postDto.author.id)
         return PostDto(
             post.id,
             post.title,
@@ -40,8 +46,11 @@ class PostController(private val postService: PostService) {
         )
     }
 
-//    @PostMapping("/{id}")
-//    fun updatePost(@PathVariable id: Long, @RequestBody postDto: PostDto): PostDto {
+    /**
+     * Обновление сообщения
+     */
+    @PostMapping("/")
+    fun updatePost(@PathVariable id: Long, @RequestBody postDto: PostDto): PostDto {
 //        val existingPost =
 //            postRepository.findById(id).orElseThrow { EntityNotFoundException("Post not found with id $id") }
 //        existingPost.title = postDto.title
@@ -53,7 +62,10 @@ class PostController(private val postService: PostService) {
 //            existingPost.content,
 //            UserDto(existingPost.author.id, existingPost.author.name, existingPost.author.email)
 //        )
-//    }
+        throw NotReleasedExcpt()
+//        return postDto
+    }
+
 
     @DeleteMapping("/{id}")
     fun deletePost(@PathVariable id: Long) {
