@@ -1,6 +1,7 @@
 ## Простой проект на Kotlin User-Post
 
-Это maven проект
+Это maven проект.
+
 Для тестов использован [Mockito](https://site.mockito.org/)
 
 ###Запуск тестов
