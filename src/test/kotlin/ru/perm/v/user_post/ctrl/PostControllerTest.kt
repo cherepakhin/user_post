@@ -31,7 +31,7 @@ internal class PostControllerTest {
 
     @Test
     fun getPosts() {
-        val posts = postController.getPosts()
+        val posts = postController.getAll()
         assertEquals(2, posts.size)
     }
 
@@ -65,4 +65,27 @@ internal class PostControllerTest {
             postController.updatePost(POST_ENTITY_100.id, postDto)
         }
     }
+
+    @Test
+    fun getById() {
+        val ID = 100L
+        val TITLE = "TITLE"
+        val CONTENT = "CONTENT"
+        val AUTHOR_ENTITY = UserEntity(0, "-", "-")
+        val POST_ENTITY = PostEntity(ID, TITLE, CONTENT, AUTHOR_ENTITY)
+
+        Mockito.`when`(mockPostService.getById(100L))
+            .thenReturn(POST_ENTITY)
+
+        val post = postController.getById(100L)
+
+        assertEquals(
+            PostDto(
+                ID,
+                TITLE,
+                CONTENT,
+                UserDto(0L, "-", "-")),
+            post)
+    }
+
 }

@@ -1,6 +1,6 @@
 package ru.perm.v.user_post.dto
 
-class PostDto(
+data class PostDto(
     val id: Long,
     val title: String,
     val content: String,

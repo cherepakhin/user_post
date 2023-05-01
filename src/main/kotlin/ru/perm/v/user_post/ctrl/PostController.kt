@@ -17,14 +17,14 @@ import ru.perm.v.user_post.service.PostService
 class PostController(private val postService: PostService) {
 
     @GetMapping("/")
-    fun getPosts(): List<PostDto> {
+    fun getAll(): List<PostDto> {
         return postService.getAll().stream().map {
             PostDto(it.id, it.title, it.content, UserDto(it.author.id, it.author.name, it.author.email))
         }.toList()
     }
 
     @GetMapping("/{id}")
-    fun getPostById(@PathVariable id: Long): PostDto {
+    fun getById(@PathVariable id: Long): PostDto {
         val post = postService.getById(id)
         return PostDto(post.id, post.title, post.content, UserDto(post.author.id, post.author.name, post.author.email))
     }
