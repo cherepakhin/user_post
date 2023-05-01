@@ -3,7 +3,7 @@ package ru.perm.v.user_post.repository
 import org.springframework.stereotype.Component
 import ru.perm.v.user_post.entity.UserEntity
 
-//TODO: Временная имплементация вместо Spring Repository
+//Временная имплементация вместо Spring Repository
 //@Repository
 @Component
 class UserRepositoryImpl : UserRepository {
