@@ -15,10 +15,6 @@ import ru.perm.v.user_post.service.PostService
 @RequestMapping("/posts")
 class PostController(private val postService: PostService) {
 
-    //TODO: Убрать. Сделаны временно
-    val emptyUser:UserDto = UserDto(-1,"-","-")
-    val emptyPost:PostDto = PostDto(-1,"-","-",emptyUser)
-
     @GetMapping("/")
     fun getPosts(): List<PostDto> {
         return postService.getAll().stream().map {

@@ -1,13 +1,15 @@
 package ru.perm.v.user_post.ctrl
 
 import org.springframework.web.bind.annotation.*
+import ru.perm.v.user_post.ctrl.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.service.UserService
 
 /**
  * Rest-контроллер пользователей.
- * Замечание: Контроллер обращается напрямую к слою Service и выполняет не только конвертацию в DTO,
- * но и некоторые внутренние операции, ктр. д.б. в отдельном промежуточном слое. Сделано для простоты.
+ * Замечание: Сделано для простоты!!! Только в учебных целях.
+ * Контроллер обращается напрямую к слою Service и выполняет не только конвертацию в DTO,
+ * но и некоторые внутренние операции, ктр. д.б. в отдельном промежуточном слое.
  */
 @RestController
 @RequestMapping("/users")
@@ -27,16 +29,21 @@ class UserController(private val userService: UserService) {
     @PostMapping("/")
     fun createUser(@RequestBody userDto: UserDto): UserDto {
         val existingUser = userService.getById(userDto.id)
-        if (existingUser != null) {
-            userService.deleteById(userDto.id)
+        if (existingUser.id.equals(-1)) {
+            throw NotFoundEntityExcpt(String.format("Not found user with %i", userDto.id))
         }
+        userService.deleteById(userDto.id)
         val u = userService.create(userDto.id, userDto.name, userDto.email)
         return UserDto(u.id, u.name, u.email)
     }
 
     @PutMapping("/{id}")
     fun updateUser(@PathVariable id: Long, @RequestBody userDto: UserDto): UserDto {
-//        val existingUser = userRepository.findById(id).orElseThrow { EntityNotFoundException("User not found with id $id") }
+        val existingUser = userService.getById(id)
+//        if (existingUser.id.equals(-1)) {
+//            throw NotFoundEntityExcpt(String.format("Not found user with %i", id))
+//        }
+//            .findById(id).orElseThrow { EntityNotFoundException("User not found with id $id") }
 //        existingUser.name = userDto.name
 //        existingUser.email = userDto.email
 //        return UserDto(userRepository.save(existingUser).id, existingUser.name, existingUser.email)
