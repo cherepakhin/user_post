@@ -24,7 +24,7 @@ class PostRepositoryImpl : PostRepository {
     )
 
     override fun getById(id: Long): PostEntity {
-        // Заменить на NotFoundException
+        // Можно заменить на NotFoundException
         return posts.filter { it.id.equals(id) }.getOrElse(0) { emptyPost }
     }
 

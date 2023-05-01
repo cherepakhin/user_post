@@ -1,12 +1,23 @@
 package ru.perm.v.user_post.ctrl.exception
 
-/** Исключение "Объект не найден.
+/**
+ * This is an example to show usage of HTML pre tag while code snippet formatting in Javadocs
  *
- *  Использование:
- * <pre><code>
- *  if (existingUser.id.equals(-1)) {
- *      throw NotFoundEntityExcpt(String.format("Not found user with %i", id))
- * </code></pre>
+ * <pre>
+ * public class Application(){
+ *     List<Integer> nums = new ArrayList<>();
+ * }
+ *
+ * </pre>
  */
 class NotFoundEntityExcpt(message: String? = "NOT FOUND") : Exception(message) {
+    /** Исключение "Объект не найден.
+     *
+     *  Использование:
+     * <pre><code>
+     *  if (existingUser.id.equals(-1)) {
+     *      throw NotFoundEntityExcpt(String.format("Not found user with %i", id))
+     * </code></pre>
+     */
+
 }
