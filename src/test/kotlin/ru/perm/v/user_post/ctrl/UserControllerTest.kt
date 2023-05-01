@@ -2,6 +2,7 @@ package ru.perm.v.user_post.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import ru.perm.v.user_post.dto.UserDto
@@ -26,5 +27,23 @@ internal class UserControllerTest {
     internal fun getById() {
         val user = userController.getUserById(1)
         assertEquals(UserDto(1, "-", "-"), user)
+    }
+
+    @Test
+    fun createUser() {
+        val ID = 100L
+        val NAME = "NAME"
+        val EMAIL = "EMAIL"
+        val userEntity = UserEntity(ID, NAME, EMAIL)
+        val userDto = UserDto(userEntity)
+
+        Mockito.`when`(mockUserService.getById(ID)).thenReturn(userEntity)
+        Mockito.`when`(mockUserService.create(ID, NAME, EMAIL)).thenReturn(userEntity)
+
+        val createdUser = userController.createUser(userDto)
+
+        assertEquals(ID, createdUser.id)
+        assertEquals(NAME, createdUser.name)
+        assertEquals(EMAIL, createdUser.email)
     }
 }

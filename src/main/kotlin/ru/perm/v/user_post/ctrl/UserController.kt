@@ -29,9 +29,6 @@ class UserController(private val userService: UserService) {
     @PostMapping("/")
     fun createUser(@RequestBody userDto: UserDto): UserDto {
         val existingUser = userService.getById(userDto.id)
-        if (existingUser.id.equals(-1)) {
-            throw NotFoundEntityExcpt(String.format("Not found user with %i", userDto.id))
-        }
         userService.deleteById(userDto.id)
         val u = userService.create(userDto.id, userDto.name, userDto.email)
         return UserDto(u.id, u.name, u.email)
