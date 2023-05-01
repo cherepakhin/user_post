@@ -2,10 +2,10 @@ package ru.perm.v.user_post.service
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
+import org.junit.jupiter.api.assertThrows
+import org.mockito.Mockito
+import org.mockito.kotlin.*
+import ru.perm.v.user_post.ctrl.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.repository.UserRepository
 

@@ -4,7 +4,8 @@ import org.springframework.stereotype.Component
 import ru.perm.v.user_post.entity.PostEntity
 import ru.perm.v.user_post.entity.UserEntity
 
-//TODO: Имплементация вместо Spring Repository
+//TODO: Имплементация вместо Spring Repository. Поэтому, закомментировано @Repository
+// и обозначен просто как @Component
 //@Repository
 @Component
 class PostRepositoryImpl : PostRepository {
@@ -23,6 +24,7 @@ class PostRepositoryImpl : PostRepository {
     )
 
     override fun getById(id: Long): PostEntity {
+        // Заменить на NotFoundException
         return posts.filter { it.id.equals(id) }.getOrElse(0) { emptyPost }
     }
 

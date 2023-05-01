@@ -7,13 +7,12 @@ import ru.perm.v.user_post.repository.PostRepository
 @Service
 open class PostServiceImpl(val postRepository: PostRepository, val userService: UserService) : PostService {
     override fun getById(id: Long): PostEntity {
-        val post = postRepository.getById(id)
-//        val authorDto = UserDto(post.author.id, post.author.name, post.author.email)
-        return post
+        return postRepository.getById(id)
     }
 
     override fun getAll(): List<PostEntity> {
         return postRepository.getAll()
+// Оставлено для примера!
 //        val dtos = posts.stream()
 //            .map { p ->
 //                PostDto(
