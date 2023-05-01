@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.service.UserService
@@ -30,7 +32,7 @@ internal class UserControllerTest {
     }
 
     @Test
-    fun createUser() {
+    internal fun createUser() {
         val ID = 100L
         val NAME = "NAME"
         val EMAIL = "EMAIL"
@@ -46,4 +48,13 @@ internal class UserControllerTest {
         assertEquals(NAME, createdUser.name)
         assertEquals(EMAIL, createdUser.email)
     }
+
+    @Test
+    fun deleteUser() {
+        val ID = 100L
+        userController.deleteUser(ID)
+        verify(mockUserService, times(1)).deleteById(ID)
+    }
+
+
 }
