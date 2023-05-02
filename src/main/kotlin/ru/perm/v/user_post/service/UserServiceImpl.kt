@@ -1,8 +1,8 @@
 package ru.perm.v.user_post.service
 
 import org.springframework.stereotype.Service
-import ru.perm.v.user_post.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.user_post.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.repository.UserRepository
 
 @Service
