@@ -27,8 +27,8 @@ open class UserServiceImpl(val userRepository: UserRepository) : UserService {
 
     override fun save(userEntity: UserEntity): UserEntity {
         val user = getById(userEntity.id)
-        if (user.id.equals(-1)) {
-            throw NotFoundEntityExcpt(String.format("Not found user with %i", userEntity.id))
+        if (user.id.equals(-1L)) {
+            throw NotFoundEntityExcpt(String.format("Not found user with " + userEntity.id))
         }
         val savedUser = userRepository.update(user.id, user.name, user.email)
         return savedUser

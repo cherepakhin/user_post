@@ -2,8 +2,11 @@ package ru.perm.v.user_post.service
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.mockito.Mockito.`when`
 import org.mockito.kotlin.*
 import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.user_post.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.repository.UserRepository
 
 internal class UserServiceImplTest {
@@ -53,5 +56,16 @@ internal class UserServiceImplTest {
         assertEquals(UserEntity(ID, NAME, EMAIL), savedUser)
         verify(mockUserRepository, times(1)).getById(ID)
         verify(mockUserRepository, times(1)).update(ID, NAME, EMAIL)
+    }
+
+    @Test
+    internal fun checkUserNotFoundExcpt() {
+        val ID: Long = 100
+        val NAME: String = "NAME"
+        val EMAIL: String = "EMAIL"
+
+        `when`(mockUserRepository.getById(ID)).thenReturn(UserEntity(-1))
+
+        assertThrows<NotFoundEntityExcpt> { userService.save(UserEntity(ID, NAME, EMAIL)) }
     }
 }
