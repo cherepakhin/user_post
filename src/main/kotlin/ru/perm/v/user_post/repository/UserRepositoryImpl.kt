@@ -15,6 +15,7 @@ class UserRepositoryImpl : UserRepository {
 
     override fun getById(id: Long): UserEntity {
         val user = users.filter { it.id.equals(id) }.firstOrNull()
+        // Если user не найден - вернуть "пустышку"
         return user ?: userEmpty
     }
 
@@ -24,7 +25,9 @@ class UserRepositoryImpl : UserRepository {
 
     override fun deleteById(id: Long) {
         var user=getById(id)
-        users.remove(user)
+        if( !user.id.equals(userEmpty.id)) {
+            users.remove(user)
+        }
     }
 
     override fun create(id: Long, name: String, email: String): UserEntity {

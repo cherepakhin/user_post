@@ -9,8 +9,6 @@ open class UserServiceImpl(val userRepository: UserRepository) : UserService {
 
 
     override fun getById(id: Long): UserEntity {
-        //TODO:  val existingUser = userRepository.findById(id)
-        //          .orElseThrow { EntityNotFoundException("User not found with id $id") }
         return userRepository.getById(id)
     }
 

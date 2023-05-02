@@ -40,6 +40,16 @@ internal class UserRepositoryImplTest {
     }
 
     @Test
+    fun deleteNotExistById() {
+        val userRepository = UserRepositoryImpl()
+        val beforeSize = userRepository.getAll().size
+        userRepository.deleteById(10000)
+        val sizeAfterDelete = userRepository.getAll().size
+        assertEquals(0, beforeSize - sizeAfterDelete)
+
+    }
+
+    @Test
     fun createUser() {
         val userRepository = UserRepositoryImpl()
         val user = userRepository.create(100, "NAME", "EMAIL")
