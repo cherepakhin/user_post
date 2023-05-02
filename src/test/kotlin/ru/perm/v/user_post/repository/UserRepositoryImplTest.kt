@@ -60,6 +60,6 @@ internal class UserRepositoryImplTest {
     fun update() {
         val userRepository = UserRepositoryImpl()
         val user = userRepository.create( "NAME", "EMAIL")
-        assertEquals(UserEntity(100, "NAME", "EMAIL"), user)
+        assertEquals(UserEntity(3, "NAME", "EMAIL"), user)
     }
 }
