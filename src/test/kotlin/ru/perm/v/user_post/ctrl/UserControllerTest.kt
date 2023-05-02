@@ -72,5 +72,22 @@ internal class UserControllerTest {
         verify(mockUserService, times(1)).getById(ID)
     }
 
+    @Test
+    fun updateExistUser() {
+        val ID = 100L
+        val NAME = "NAME"
+        val EMAIL = "EMAIL"
+        val userEntityFromDB = UserEntity(ID, "-", "-")
+        Mockito.`when`(mockUserService.getById(ID)).thenReturn(userEntityFromDB)
+        Mockito.`when`(mockUserService.save(userEntityFromDB)).thenReturn(userEntityFromDB)
+
+        val updatedUser = userController.updateUser(UserDto(ID, NAME, EMAIL))
+
+        verify(mockUserService, times(1)).getById(ID)
+        verify(mockUserService, times(1)).save(UserEntity(ID, NAME, EMAIL))
+
+        assertEquals(UserDto(ID,NAME, EMAIL), updatedUser)
+    }
+
 
 }
