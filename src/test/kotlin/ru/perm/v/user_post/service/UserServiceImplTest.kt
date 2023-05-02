@@ -38,4 +38,20 @@ internal class UserServiceImplTest {
         userService.deleteById(1)
         verify(mockUserRepository, times(1)).deleteById(1)
     }
+
+    @Test
+    internal fun save() {
+        val ID: Long = 100
+        val NAME: String = "NAME"
+        val EMAIL: String = "EMAIL"
+
+        doReturn(UserEntity(ID, NAME, EMAIL)).`when`(mockUserRepository).getById(ID)
+        doReturn(UserEntity(ID, NAME, EMAIL)).`when`(mockUserRepository).update(ID, NAME, EMAIL)
+
+        val savedUser = userService.save(UserEntity(ID, NAME, EMAIL))
+
+        assertEquals(UserEntity(ID, NAME, EMAIL), savedUser)
+        verify(mockUserRepository, times(1)).getById(ID)
+        verify(mockUserRepository, times(1)).update(ID, NAME, EMAIL)
+    }
 }
