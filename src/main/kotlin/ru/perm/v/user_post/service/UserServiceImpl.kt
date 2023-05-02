@@ -22,11 +22,7 @@ open class UserServiceImpl(val userRepository: UserRepository) : UserService {
     }
 
     override fun create(name: String, email: String): UserEntity {
-//        val user = getById(id)
-//        if (user.id.equals(-1L)) {
-//            return userRepository.create(id, name, email)
-//        }
-        throw NotFoundEntityExcpt(String.format("User with %s EXIST", name))
+        return userRepository.create(name, email)
     }
 
     override fun save(userEntity: UserEntity): UserEntity {
