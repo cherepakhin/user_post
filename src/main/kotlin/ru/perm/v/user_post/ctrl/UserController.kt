@@ -33,24 +33,24 @@ class UserController(private val userService: UserService) {
     fun createUser(@RequestBody userDto: UserDto): UserDto {
         val existingUser = userService.getById(userDto.id)
         userService.deleteById(userDto.id)
-        val u = userService.create(userDto.id, userDto.name, userDto.email)
+        val u = userService.create(userDto.name, userDto.email)
         return UserDto(u.id, u.name, u.email)
     }
 
     /**
-     * Обнвовление User
+     * Обновление User
      */
-    @PostMapping("/{id}")
-    fun updateUser(@PathVariable id: Long, @RequestBody userDto: UserDto): UserDto {
-        val existingUser = userService.getById(id)
-        if (existingUser.id.equals(-1)) {
-            throw NotFoundEntityExcpt(String.format("Not found user with %i", id))
+    @PostMapping("/")
+    fun updateUser(@RequestBody userDto: UserDto): UserDto {
+        val user = userService.getById(userDto.id)
+        if (user.id.equals(-1L)) {
+            throw NotFoundEntityExcpt(String.format("Not found user with %s", user.id))
         }
 //            .findById(id).orElseThrow { EntityNotFoundException("User not found with id $id") }
-        existingUser.name = userDto.name
-        existingUser.email = userDto.email
-        return UserDto(userService.save(existingUser).id, existingUser.name, existingUser.email)
-        return UserDto(userDto.id, userDto.name, userDto.email)
+        user.name = userDto.name
+        user.email = userDto.email
+        val updatedUser = userService.save(user)
+        return UserDto(updatedUser.id, updatedUser.name, updatedUser.email)
     }
 
     @DeleteMapping("/{id}")

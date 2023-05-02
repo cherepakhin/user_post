@@ -10,7 +10,7 @@ internal class UserServiceImplTest {
     private val mockUserRepository = mock<UserRepository> {
         on { getById(1) } doReturn UserEntity(1, "-", "-")
         on { getAll() } doReturn listOf(UserEntity(1, "-", "-"), UserEntity(2, "-", "-"))
-        on { create(1, "NAME", "EMAIL") } doReturn UserEntity(1, "NAME", "EMAIL")
+        on { create("NAME", "EMAIL") } doReturn UserEntity(1, "NAME", "EMAIL")
     }
     private val userService = UserServiceImpl(mockUserRepository)
 
@@ -29,7 +29,7 @@ internal class UserServiceImplTest {
 
     @Test
     fun create() {
-        val user = userService.create(1, "NAME", "EMAIL")
+        val user = userService.create("NAME", "EMAIL")
         assertEquals(UserEntity(1, "NAME", "EMAIL"), user)
     }
 

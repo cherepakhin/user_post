@@ -2,13 +2,16 @@ package ru.perm.v.user_post.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
+import org.springframework.data.crossstore.ChangeSetPersister
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.user_post.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.service.UserService
 
 internal class UserControllerTest {
@@ -40,7 +43,7 @@ internal class UserControllerTest {
         val userDto = UserDto(userEntity)
 
         Mockito.`when`(mockUserService.getById(ID)).thenReturn(userEntity)
-        Mockito.`when`(mockUserService.create(ID, NAME, EMAIL)).thenReturn(userEntity)
+        Mockito.`when`(mockUserService.create(NAME, EMAIL)).thenReturn(userEntity)
 
         val createdUser = userController.createUser(userDto)
 
@@ -61,11 +64,11 @@ internal class UserControllerTest {
         val ID = 100L
         val NAME = "NAME"
         val EMAIL = "EMAIL"
-        val userEntity = UserEntity(ID, NAME, EMAIL)
+        val user = UserDto(ID,NAME,EMAIL)
         val userEntityNotExist = UserEntity(-1, "-", "-")
         Mockito.`when`(mockUserService.getById(ID)).thenReturn(userEntityNotExist)
 
-        userController.updateUser(ID, UserDto(ID,NAME,EMAIL))
+        assertThrows<NotFoundEntityExcpt> { userController.updateUser(user) }
 
         verify(mockUserService, times(1)).getById(ID)
     }

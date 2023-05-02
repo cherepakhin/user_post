@@ -24,18 +24,15 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun deleteById(id: Long) {
-        var user=getById(id)
-        if( !user.id.equals(userEmpty.id)) {
+        var user = getById(id)
+        if (!user.id.equals(userEmpty.id)) {
             users.remove(user)
         }
     }
 
-    override fun create(id: Long, name: String, email: String): UserEntity {
-        var userEntity = getById(id)
-        if (userEntity != null) {
-            deleteById(id)
-        }
-        userEntity = UserEntity(id, name, email)
+    override fun create(name: String, email: String): UserEntity {
+        val id: Long = users.stream().mapToLong() { u -> u.id }.max().orElse(-1)
+        val userEntity = UserEntity(id + 1, name, email)
         users.plus(userEntity)
         return userEntity
     }
@@ -45,6 +42,6 @@ class UserRepositoryImpl : UserRepository {
         if (user != null) {
             deleteById(id)
         }
-        return create(id, name, email)
+        return create(name, email)
     }
 }
