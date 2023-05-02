@@ -56,5 +56,19 @@ internal class UserControllerTest {
         verify(mockUserService, times(1)).deleteById(ID)
     }
 
+    @Test
+    fun updateNotExistUser() {
+        val ID = 100L
+        val NAME = "NAME"
+        val EMAIL = "EMAIL"
+        val userEntity = UserEntity(ID, NAME, EMAIL)
+        val userEntityNotExist = UserEntity(-1, "-", "-")
+        Mockito.`when`(mockUserService.getById(ID)).thenReturn(userEntityNotExist)
+
+        userController.updateUser(ID, UserDto(ID,NAME,EMAIL))
+
+        verify(mockUserService, times(1)).getById(ID)
+    }
+
 
 }

@@ -8,7 +8,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import ru.perm.v.user_post.ctrl.exception.NotReleasedExcpt
+import ru.perm.v.user_post.exception.NotReleasedExcpt
 import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.PostEntity

@@ -7,4 +7,5 @@ interface UserService {
     fun getAll(): List<UserEntity>;
     fun deleteById(id: Long);
     fun create(id:Long, name:String, email:String): UserEntity;
+    fun save(user: UserEntity): UserEntity
 }

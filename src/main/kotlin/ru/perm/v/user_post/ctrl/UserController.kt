@@ -1,7 +1,7 @@
 package ru.perm.v.user_post.ctrl
 
 import org.springframework.web.bind.annotation.*
-import ru.perm.v.user_post.ctrl.exception.NotFoundEntityExcpt
+import ru.perm.v.user_post.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.service.UserService
 
@@ -26,7 +26,10 @@ class UserController(private val userService: UserService) {
         return UserDto(u.id, u.name, u.email)
     }
 
-    @PostMapping("/")
+    /**
+     * Создание User
+     */
+    @PutMapping("/")
     fun createUser(@RequestBody userDto: UserDto): UserDto {
         val existingUser = userService.getById(userDto.id)
         userService.deleteById(userDto.id)
@@ -34,16 +37,19 @@ class UserController(private val userService: UserService) {
         return UserDto(u.id, u.name, u.email)
     }
 
-    @PutMapping("/{id}")
+    /**
+     * Обнвовление User
+     */
+    @PostMapping("/{id}")
     fun updateUser(@PathVariable id: Long, @RequestBody userDto: UserDto): UserDto {
         val existingUser = userService.getById(id)
-//        if (existingUser.id.equals(-1)) {
-//            throw NotFoundEntityExcpt(String.format("Not found user with %i", id))
-//        }
+        if (existingUser.id.equals(-1)) {
+            throw NotFoundEntityExcpt(String.format("Not found user with %i", id))
+        }
 //            .findById(id).orElseThrow { EntityNotFoundException("User not found with id $id") }
-//        existingUser.name = userDto.name
-//        existingUser.email = userDto.email
-//        return UserDto(userRepository.save(existingUser).id, existingUser.name, existingUser.email)
+        existingUser.name = userDto.name
+        existingUser.email = userDto.email
+        return UserDto(userService.save(existingUser).id, existingUser.name, existingUser.email)
         return UserDto(userDto.id, userDto.name, userDto.email)
     }
 

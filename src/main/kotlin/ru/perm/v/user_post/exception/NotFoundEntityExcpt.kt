@@ -1,4 +1,4 @@
-package ru.perm.v.user_post.ctrl.exception
+package ru.perm.v.user_post.exception
 
 /**
  * This is an example to show usage of HTML pre tag while code snippet formatting in Javadocs

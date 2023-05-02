@@ -1,7 +1,7 @@
 package ru.perm.v.user_post.ctrl
 
 import org.springframework.web.bind.annotation.*
-import ru.perm.v.user_post.ctrl.exception.NotReleasedExcpt
+import ru.perm.v.user_post.exception.NotReleasedExcpt
 import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.service.PostService
