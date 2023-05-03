@@ -86,7 +86,7 @@ internal class UserControllerTest {
         verify(mockUserService, times(1)).getById(ID)
         verify(mockUserService, times(1)).save(UserEntity(ID, NAME, EMAIL))
 
-        assertEquals(UserDto(ID,NAME, EMAIL), updatedUser)
+        assertEquals(UserDto(ID, NAME, EMAIL), updatedUser)
     }
 
 
