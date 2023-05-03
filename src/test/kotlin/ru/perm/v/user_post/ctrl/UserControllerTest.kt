@@ -17,7 +17,7 @@ internal class UserControllerTest {
 
     private val mockUserService = mock<UserService> {
         on { getById(1) } doReturn UserEntity(1, "-", "-")
-        on { getAll() } doReturn listOf(UserEntity(1, "-", "-"), UserEntity(2, "-", "-")) as List<UserEntity>
+        on { getAll() } doReturn listOf(UserEntity(1, "-", "-"), UserEntity(2, "-", "-"))
     }
     private val userController = UserController(mockUserService)
 

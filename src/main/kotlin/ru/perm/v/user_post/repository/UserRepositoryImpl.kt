@@ -38,10 +38,8 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun update(id: Long, name: String, email: String): UserEntity {
-        var user = getById(id)
-        if (user != null) {
-            deleteById(id)
-        }
+        val user = getById(id)
+        deleteById(id)
         return create(name, email)
     }
 }

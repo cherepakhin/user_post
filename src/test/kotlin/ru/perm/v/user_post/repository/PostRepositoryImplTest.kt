@@ -42,7 +42,6 @@ internal class PostRepositoryImplTest {
     fun create() {
         val postRepository = PostRepositoryImpl()
         val sizeBefore = postRepository.getAll().size
-        val ID = 101L
         val CONTENT = "NAME_101"
         val TITLE = "TITLE_101"
         val AUTHOR = UserEntity(1, "AUTHOR_NAME", "AUTHOR_EMAIL")
