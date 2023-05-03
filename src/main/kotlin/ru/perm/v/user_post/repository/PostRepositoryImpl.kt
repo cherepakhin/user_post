@@ -9,16 +9,16 @@ import ru.perm.v.user_post.entity.UserEntity
 //@Repository
 @Component
 class PostRepositoryImpl : PostRepository {
-    private val userEmpty = UserEntity(-1, "-", "-")
-    private val emptyPost = PostEntity(-1, "-", "-", userEmpty)
+    private val userEmpty = UserEntity(-1L, "-", "-")
+    private val emptyPost = PostEntity(-1L, "-", "-", userEmpty)
 
     private val posts = mutableListOf<PostEntity>(
         PostEntity(
-            1, "TITLE_1", "CONTENT_1",
+            1L, "TITLE_1", "CONTENT_1",
             UserEntity(1, "NAME_1", "EMAIL_1")
         ),
         PostEntity(
-            2, "TITLE_2", "CONTENT_2",
+            2L, "TITLE_2", "CONTENT_2",
             UserEntity(2, "NAME_2", "EMAIL_2")
         )
     )

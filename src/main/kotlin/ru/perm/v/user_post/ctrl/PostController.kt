@@ -52,11 +52,12 @@ class PostController(private val postService: PostService) {
     @PostMapping("/")
     fun updatePost(@RequestBody postDto: PostDto): PostDto {
         val existPost = postService.getById(postDto.id)
-        if(existPost.id.equals(-1)) {
+        if(existPost.id.equals(-1L)) {
             throw NotFoundEntityExcpt(format("Post with id %s not found", existPost.id))
         }
-        val updatedPost=postService.update(existPost.id,postDto.title,postDto.content, postDto.author.id)
-        return PostDto(updatedPost.id, updatedPost.title, updatedPost.content,UserDto(updatedPost.author))
+        return PostDto(existPost.id, existPost.title,existPost.content, postDto.author)
+//        val updatedPost=postService.update(existPost.id,postDto.title,postDto.content, postDto.author.id)
+//        return PostDto(updatedPost.id, updatedPost.title, updatedPost.content,UserDto(updatedPost.author))
     }
 
 

@@ -2,6 +2,7 @@ package ru.perm.v.user_post.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
@@ -11,18 +12,19 @@ import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.PostEntity
 import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.user_post.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.service.PostService
 
 internal class PostControllerTest {
 
-    val AUTHOR_ENTITY_100 = UserEntity(100, "NAME_100", "EMAIL_100")
-    val AUTHOR_ENTITY_200 = UserEntity(200, "NAME_200", "EMAIL_200")
+    val AUTHOR_ENTITY_100 = UserEntity(100L, "NAME_100", "EMAIL_100")
+    val AUTHOR_ENTITY_200 = UserEntity(200L, "NAME_200", "EMAIL_200")
 
-    val POST_ENTITY_100 = PostEntity(100, "TITLE_ENTITY_100", "CONTENT_ENTITY_100", AUTHOR_ENTITY_100)
-    val POST_ENTITY_200 = PostEntity(200, "TITLE_ENTITY_200", "CONTENT_ENTITY_200", AUTHOR_ENTITY_200)
+    val POST_ENTITY_100 = PostEntity(100L, "TITLE_ENTITY_100", "CONTENT_ENTITY_100", AUTHOR_ENTITY_100)
+    val POST_ENTITY_200 = PostEntity(200L, "TITLE_ENTITY_200", "CONTENT_ENTITY_200", AUTHOR_ENTITY_200)
 
     private val mockPostService = mock<PostService> {
-        on { getById(100) } doReturn POST_ENTITY_100
+        on { getById(100L) } doReturn POST_ENTITY_100
         on { getAll() } doReturn listOf(POST_ENTITY_100, POST_ENTITY_200)
     }
     private val postController = PostController(mockPostService)
@@ -37,35 +39,38 @@ internal class PostControllerTest {
     fun createPost() {
         val TITLE = "TITLE"
         val CONTENT = "CONTENT"
-        val AUTHOR_DTO = UserDto(100, "NAME_100", "EMAIL_100")
-        val postDto = PostDto(-1, TITLE, CONTENT, AUTHOR_DTO)
-        val AUTHOR_ENTITY = UserEntity(100, "NAME_100", "EMAIL_100")
+        val AUTHOR_DTO = UserDto(100L, "NAME_100", "EMAIL_100")
+        val postDto = PostDto(-1L, TITLE, CONTENT, AUTHOR_DTO)
+        val AUTHOR_ENTITY = UserEntity(100L, "NAME_100", "EMAIL_100")
 
         Mockito.`when`(mockPostService.create(TITLE, CONTENT, AUTHOR_DTO.id))
-            .thenReturn(PostEntity(0, TITLE, CONTENT, AUTHOR_ENTITY))
+            .thenReturn(PostEntity(0L, TITLE, CONTENT, AUTHOR_ENTITY))
 
         val createdPost = postController.createPost(postDto)
 
         assertEquals(TITLE, createdPost.title)
         assertEquals(CONTENT, createdPost.content)
-        assertEquals(100, createdPost.author.id)
+        assertEquals(100L, createdPost.author.id)
 
         verify(mockPostService, times(1)).create(TITLE, CONTENT, AUTHOR_DTO.id)
     }
 
     @Test
     fun updatePostNotFoundExcpt() {
-        val ID: Long = 100
+        val ID = 100L
         val TITLE = "TITLE"
         val CONTENT = "CONTENT"
-        val AUTHOR_DTO = UserDto(0, "-", "-")
+        val AUTHOR_DTO = UserDto(0L, "-", "-")
+
         val postDto = PostDto(ID, TITLE, CONTENT, AUTHOR_DTO)
-//        when(mockPostService.getById(ID))
-//        postController.updatePost(postDto)
-// Оставлено для примера использования
-//        assertThrows<NotReleasedExcpt>() {
-//            postController.updatePost(postDto)
-//        }
+
+        Mockito.`when`(mockPostService.getById(ID))
+            .thenReturn(PostEntity(-1L, TITLE, CONTENT,
+                UserEntity(100L, "NAME", "EMAIL")))
+
+        val postController = PostController(mockPostService)
+
+        assertThrows<NotFoundEntityExcpt> { postController.updatePost(postDto) }
     }
 
     @Test
@@ -73,7 +78,7 @@ internal class PostControllerTest {
         val ID = 100L
         val TITLE = "TITLE"
         val CONTENT = "CONTENT"
-        val AUTHOR_ENTITY = UserEntity(0, "-", "-")
+        val AUTHOR_ENTITY = UserEntity(0L, "-", "-")
         val POST_ENTITY = PostEntity(ID, TITLE, CONTENT, AUTHOR_ENTITY)
 
         Mockito.`when`(mockPostService.getById(100L))
@@ -91,20 +96,4 @@ internal class PostControllerTest {
             post
         )
     }
-
-    @Test
-    fun updateExistPost() {
-        val ID: Long = 100
-        val TITLE = "TITLE"
-        val CONTENT = "CONTENT"
-        val AUTHOR_DTO = UserDto(10, "-", "-")
-        val postDto = PostDto(ID, TITLE, CONTENT, AUTHOR_DTO)
-        Mockito.`when`(mockPostService.getById(ID)).thenReturn(PostEntity(ID,TITLE,CONTENT,AUTHOR_ENTITY_100))
-
-//        pos..updatePost(postDto)
-//        assertThrows<NotReleasedExcpt>() {
-//            postController.updatePost(postDto)
-//        }
-    }
-
 }

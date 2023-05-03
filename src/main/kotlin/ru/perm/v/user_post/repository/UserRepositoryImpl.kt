@@ -7,10 +7,10 @@ import ru.perm.v.user_post.entity.UserEntity
 //@Repository
 @Component
 class UserRepositoryImpl : UserRepository {
-    private val userEmpty = UserEntity(-1, "not found", "not found")
+    private val userEmpty = UserEntity(-1L, "not found", "not found")
     private val users = mutableListOf(
-        UserEntity(1, "name1", "email1"),
-        UserEntity(2, "name2", "email2"),
+        UserEntity(1L, "name1", "email1"),
+        UserEntity(2L, "name2", "email2"),
     )
 
     override fun getById(id: Long): UserEntity {
