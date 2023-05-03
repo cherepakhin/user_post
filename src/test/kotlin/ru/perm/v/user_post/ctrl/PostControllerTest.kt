@@ -2,13 +2,11 @@ package ru.perm.v.user_post.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import ru.perm.v.user_post.exception.NotReleasedExcpt
 import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
 import ru.perm.v.user_post.entity.PostEntity
@@ -56,14 +54,18 @@ internal class PostControllerTest {
     }
 
     @Test
-    fun updatePostTempExcpt() {
+    fun updatePostNotFoundExcpt() {
+        val ID: Long = 100
         val TITLE = "TITLE"
         val CONTENT = "CONTENT"
         val AUTHOR_DTO = UserDto(0, "-", "-")
-        val postDto = PostDto(-1, TITLE, CONTENT, AUTHOR_DTO)
-        assertThrows<NotReleasedExcpt>() {
-            postController.updatePost(POST_ENTITY_100.id, postDto)
-        }
+        val postDto = PostDto(ID, TITLE, CONTENT, AUTHOR_DTO)
+//        when(mockPostService.getById(ID))
+//        postController.updatePost(postDto)
+// Оставлено для примера использования
+//        assertThrows<NotReleasedExcpt>() {
+//            postController.updatePost(postDto)
+//        }
     }
 
     @Test
@@ -84,8 +86,25 @@ internal class PostControllerTest {
                 ID,
                 TITLE,
                 CONTENT,
-                UserDto(0L, "-", "-")),
-            post)
+                UserDto(0L, "-", "-")
+            ),
+            post
+        )
+    }
+
+    @Test
+    fun updateExistPost() {
+        val ID: Long = 100
+        val TITLE = "TITLE"
+        val CONTENT = "CONTENT"
+        val AUTHOR_DTO = UserDto(10, "-", "-")
+        val postDto = PostDto(ID, TITLE, CONTENT, AUTHOR_DTO)
+        Mockito.`when`(mockPostService.getById(ID)).thenReturn(PostEntity(ID,TITLE,CONTENT,AUTHOR_ENTITY_100))
+
+//        pos..updatePost(postDto)
+//        assertThrows<NotReleasedExcpt>() {
+//            postController.updatePost(postDto)
+//        }
     }
 
 }

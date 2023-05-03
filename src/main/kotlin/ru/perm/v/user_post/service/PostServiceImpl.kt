@@ -34,4 +34,10 @@ open class PostServiceImpl(val postRepository: PostRepository, val userService: 
         val author = userService.getById(authorId)
         return postRepository.create(title, content, author)
     }
+
+    override fun update(id: Long, title: String, content: String, authorId: Long): PostEntity {
+        postRepository.deleteById(id)
+        val authorEntity = userService.getById(authorId)
+        return postRepository.create(title, content, authorEntity)
+    }
 }

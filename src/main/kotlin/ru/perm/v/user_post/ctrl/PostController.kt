@@ -3,8 +3,11 @@ package ru.perm.v.user_post.ctrl
 import org.springframework.web.bind.annotation.*
 import ru.perm.v.user_post.dto.PostDto
 import ru.perm.v.user_post.dto.UserDto
+import ru.perm.v.user_post.entity.PostEntity
+import ru.perm.v.user_post.exception.NotFoundEntityExcpt
 import ru.perm.v.user_post.exception.NotReleasedExcpt
 import ru.perm.v.user_post.service.PostService
+import java.lang.String.format
 
 /**
  * Rest-контроллер постов.
@@ -47,19 +50,13 @@ class PostController(private val postService: PostService) {
      * Обновление сообщения
      */
     @PostMapping("/")
-    fun updatePost(@PathVariable id: Long, @RequestBody postDto: PostDto): PostDto {
-//        val existingPost =
-//            postRepository.findById(id).orElseThrow { EntityNotFoundException("Post not found with id $id") }
-//        existingPost.title = postDto.title
-//        existingPost.content = postDto.content
-//        existingPost.author = User(postDto.author.id, postDto.author.name, postDto.author.email)
-//        return PostDto(
-//            postRepository.save(existingPost).id,
-//            existingPost.title,
-//            existingPost.content,
-//            UserDto(existingPost.author.id, existingPost.author.name, existingPost.author.email)
-//        )
-        throw NotReleasedExcpt()
+    fun updatePost(@RequestBody postDto: PostDto): PostDto {
+        val existPost = postService.getById(postDto.id)
+        if(existPost.id.equals(-1)) {
+            throw NotFoundEntityExcpt(format("Post with id %s not found", existPost.id))
+        }
+        val updatedPost=postService.update(existPost.id,postDto.title,postDto.content, postDto.author.id)
+        return PostDto(updatedPost.id, updatedPost.title, updatedPost.content,UserDto(updatedPost.author))
     }
 
 
