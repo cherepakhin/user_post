@@ -67,7 +67,6 @@ internal class PostServiceImplTest {
 
         Mockito.`when`(mockUserService.getById(AUTHOR_ID))
             .doReturn(UserEntity(AUTHOR_ID, "-", "-"))
-
         val updatedPost = postService.update(ID, TITLE, CONTENT, AUTHOR_ID)
 
         verify(mockPostRepository, times(1)).deleteById(ID)
