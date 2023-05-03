@@ -3,7 +3,10 @@ package ru.perm.v.user_post.service
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 import ru.perm.v.user_post.entity.PostEntity
 import ru.perm.v.user_post.entity.UserEntity
 import ru.perm.v.user_post.repository.PostRepository
@@ -53,7 +56,7 @@ internal class PostServiceImplTest {
         val TITLE = "title"
         val CONTENT = "content"
         val AUTHOR_ID = 0L
-        val post = postService.create(TITLE, CONTENT, AUTHOR_ID)
+        postService.create(TITLE, CONTENT, AUTHOR_ID)
 
         verify(mockUserService, times(1)).getById(AUTHOR_ID)
     }
@@ -63,15 +66,16 @@ internal class PostServiceImplTest {
         val ID = 100L
         val TITLE = "title"
         val CONTENT = "content"
-        val AUTHOR_ID = 50L
+        val AUTHOR_ID = 2L
+        val USER_ENTITY = UserEntity(AUTHOR_ID, "NAME_2", "EMAIL_2")
 
-        Mockito.`when`(mockUserService.getById(AUTHOR_ID))
-            .doReturn(UserEntity(AUTHOR_ID, "-", "-"))
-        val updatedPost = postService.update(ID, TITLE, CONTENT, AUTHOR_ID)
+        Mockito.doNothing().`when`(mockPostRepository).deleteById(ID)
+        Mockito.`when`(mockPostRepository.create(TITLE, CONTENT, USER_ENTITY))
+            .thenReturn(PostEntity(ID, TITLE, CONTENT, USER_ENTITY))
+
+        postService.update(ID, TITLE, CONTENT, AUTHOR_ID)
 
         verify(mockPostRepository, times(1)).deleteById(ID)
         verify(mockUserService, times(1)).getById(AUTHOR_ID)
-        verify(mockPostRepository, times(1))
-            .create(TITLE, CONTENT, UserEntity(AUTHOR_ID, "-", "-"))
     }
 }
