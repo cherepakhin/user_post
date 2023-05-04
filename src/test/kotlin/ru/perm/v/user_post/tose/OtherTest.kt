@@ -14,8 +14,8 @@ class OtherTest {
     }
 
     @Test
-    @DisplayName("Test list") //
-    internal fun listTest() {
+    @DisplayName("Test list") // такое имя теста будет в результатах
+    internal fun `Test equals list`() {
         val list = setOf<String>("3", "2", "1")
         val newList = list.map { it -> it + "0" }
 
