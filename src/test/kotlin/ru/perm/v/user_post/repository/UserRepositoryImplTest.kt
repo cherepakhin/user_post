@@ -1,8 +1,8 @@
-package ru.perm.v.user_post.repository
+package ru.perm.v.userpost.repository
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.userpost.entity.UserEntity
 
 internal class UserRepositoryImplTest {
 
@@ -46,7 +46,6 @@ internal class UserRepositoryImplTest {
         userRepository.deleteById(10000)
         val sizeAfterDelete = userRepository.getAll().size
         assertEquals(0, beforeSize - sizeAfterDelete)
-
     }
 
     @Test
@@ -59,7 +58,7 @@ internal class UserRepositoryImplTest {
     @Test
     fun update() {
         val userRepository = UserRepositoryImpl()
-        val user = userRepository.create( "NAME", "EMAIL")
+        val user = userRepository.create("NAME", "EMAIL")
         assertEquals(UserEntity(3, "NAME", "EMAIL"), user)
     }
 }

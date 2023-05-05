@@ -1,15 +1,20 @@
-package ru.perm.v.user_post.mapper
+package ru.perm.v.userpost.mapper
 
-import ru.perm.v.user_post.dto.PostDto
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.userpost.dto.PostDto
+import ru.perm.v.userpost.entity.PostEntity
+import ru.perm.v.userpost.entity.UserEntity
 
 class PostMapper() {
-    fun toEntity(dto:PostDto): PostEntity {
-        return PostEntity(dto.id, dto.title, dto.content, UserEntity(
-            dto.author.id, dto.author.name, dto.author.email
-            )
+    fun toEntity(dto: PostDto): PostEntity {
+        return PostEntity(
+            dto.id,
+            dto.title,
+            dto.content,
+            UserEntity(
+                dto.author.id,
+                dto.author.name,
+                dto.author.email,
+            ),
         )
     }
 }

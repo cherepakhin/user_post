@@ -1,9 +1,16 @@
-package ru.perm.v.user_post.ctrl
+package ru.perm.v.userpost.ctrl
 
-import org.springframework.web.bind.annotation.*
-import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.exception.NotFoundEntityExcpt
-import ru.perm.v.user_post.service.UserService
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+import ru.perm.v.userpost.dto.UserDto
+import ru.perm.v.userpost.exception.NotFoundEntityExcpt
+import ru.perm.v.userpost.service.UserService
 
 /**
  * Rest-контроллер пользователей.

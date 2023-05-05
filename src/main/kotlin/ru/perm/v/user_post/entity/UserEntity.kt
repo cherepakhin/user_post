@@ -1,4 +1,3 @@
-package ru.perm.v.user_post.entity
+package ru.perm.v.userpost.entity
 
-data class UserEntity(val id: Long, var name: String ="", var email: String="") {
-}
+data class UserEntity(val id: Long, var name: String = "", var email: String = "")

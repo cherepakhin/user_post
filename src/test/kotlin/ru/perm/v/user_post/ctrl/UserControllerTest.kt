@@ -1,4 +1,4 @@
-package ru.perm.v.user_post.ctrl
+package ru.perm.v.userpost.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -8,10 +8,10 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.entity.UserEntity
-import ru.perm.v.user_post.exception.NotFoundEntityExcpt
-import ru.perm.v.user_post.service.UserService
+import ru.perm.v.userpost.dto.UserDto
+import ru.perm.v.userpost.entity.UserEntity
+import ru.perm.v.userpost.exception.NotFoundEntityExcpt
+import ru.perm.v.userpost.service.UserService
 
 internal class UserControllerTest {
 
@@ -88,6 +88,4 @@ internal class UserControllerTest {
 
         assertEquals(UserDto(ID, NAME, EMAIL), updatedUser)
     }
-
-
 }
