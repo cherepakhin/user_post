@@ -1,13 +1,13 @@
-package ru.perm.v.user_post.service
+package ru.perm.v.userpost.service
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.*
-import ru.perm.v.user_post.entity.UserEntity
-import ru.perm.v.user_post.exception.NotFoundEntityExcpt
-import ru.perm.v.user_post.repository.UserRepository
+import ru.perm.v.userpost.entity.UserEntity
+import ru.perm.v.userpost.exception.NotFoundEntityExcpt
+import ru.perm.v.userpost.repository.UserRepository
 
 internal class UserServiceImplTest {
     private val mockUserRepository = mock<UserRepository> {

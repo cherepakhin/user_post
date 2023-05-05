@@ -1,12 +1,11 @@
-package ru.perm.v.user_post.mapper
+package ru.perm.v.userpost.mapper
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import ru.perm.v.user_post.mapper.UserMapper
-import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.userpost.dto.UserDto
+import ru.perm.v.userpost.entity.UserEntity
 
-internal class UserMapperTest {
+internal class PostMapperTest {
 
     @Test
     fun toEntityTest() {

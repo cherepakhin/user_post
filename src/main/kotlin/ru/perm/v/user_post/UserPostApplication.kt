@@ -1,4 +1,4 @@
-package ru.perm.v.user_post
+package ru.perm.v.userpost
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

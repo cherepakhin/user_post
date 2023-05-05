@@ -1,4 +1,4 @@
-package ru.perm.v.user_post.exception
+package ru.perm.v.userpost.exception
 
 /**
  * This is an example to show usage of HTML pre tag while code snippet formatting in Javadocs
@@ -19,5 +19,4 @@ class NotFoundEntityExcpt(message: String? = "NOT FOUND") : Exception(message) {
      *      throw NotFoundEntityExcpt(String.format("Not found user with %i", id))
      * </code></pre>
      */
-
 }

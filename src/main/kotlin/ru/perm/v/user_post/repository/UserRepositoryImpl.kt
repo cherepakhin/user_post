@@ -1,10 +1,10 @@
-package ru.perm.v.user_post.repository
+package ru.perm.v.userpost.repository
 
 import org.springframework.stereotype.Component
-import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.userpost.entity.UserEntity
 
-//Временная имплементация вместо Spring Repository
-//@Repository
+// Временная имплементация вместо Spring Repository
+// @Repository
 @Component
 class UserRepositoryImpl : UserRepository {
     private val userEmpty = UserEntity(-1L, "not found", "not found")

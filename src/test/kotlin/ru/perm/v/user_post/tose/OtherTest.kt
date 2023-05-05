@@ -1,4 +1,4 @@
-package ru.perm.v.user_post.tose
+package ru.perm.v.userpost.tose
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals

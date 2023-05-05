@@ -1,4 +1,3 @@
-package ru.perm.v.user_post.exception
+package ru.perm.v.userpost.exception
 
-class NotReleasedExcpt() : Exception("Not released") {
-}
+class NotReleasedExcpt() : Exception("Not released")

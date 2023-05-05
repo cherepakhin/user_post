@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.perm.v</groupId>
-	<artifactId>user_post</artifactId>
+	<artifactId>userpost</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user_post</name>
+	<name>userpost</name>
 	<description>Project for Spring Boot from chatgpt</description>
 	<properties>
 		<java.version>17</java.version>

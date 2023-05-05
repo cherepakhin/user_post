@@ -1,20 +1,17 @@
-package ru.perm.v.user_post.ctrl
+package ru.perm.v.userpost.ctrl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
-import ru.perm.v.user_post.dto.PostDto
-import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.entity.UserEntity
-import ru.perm.v.user_post.exception.NotReleasedExcpt
-import ru.perm.v.user_post.service.PostService
+import ru.perm.v.userpost.dto.PostDto
+import ru.perm.v.userpost.dto.UserDto
+import ru.perm.v.userpost.entity.PostEntity
+import ru.perm.v.userpost.entity.UserEntity
+import ru.perm.v.userpost.service.PostService
 
 internal class PostControllerTest {
 

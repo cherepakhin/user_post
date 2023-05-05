@@ -1,13 +1,12 @@
-package ru.perm.v.user_post.service
+package ru.perm.v.userpost.service
 
 import org.springframework.stereotype.Service
-import ru.perm.v.user_post.entity.UserEntity
-import ru.perm.v.user_post.exception.NotFoundEntityExcpt
-import ru.perm.v.user_post.repository.UserRepository
+import ru.perm.v.userpost.entity.UserEntity
+import ru.perm.v.userpost.exception.NotFoundEntityExcpt
+import ru.perm.v.userpost.repository.UserRepository
 
 @Service
 open class UserServiceImpl(val userRepository: UserRepository) : UserService {
-
 
     override fun getById(id: Long): UserEntity {
         return userRepository.getById(id)

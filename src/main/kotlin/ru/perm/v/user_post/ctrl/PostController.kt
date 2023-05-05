@@ -1,17 +1,11 @@
-package ru.perm.v.user_post.ctrl
+package ru.perm.v.userpost.ctrl
 
-import org.springframework.web.bind.annotation.*
-import ru.perm.v.user_post.dto.PostDto
-import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.exception.NotFoundEntityExcpt
-import ru.perm.v.user_post.exception.NotReleasedExcpt
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.entity.UserEntity
-
-import ru.perm.v.user_post.service.PostService
 import com.github.benmanes.caffeine.cache.Caffeine
+import org.springframework.web.bind.annotation.*
+import ru.perm.v.userpost.dto.PostDto
+import ru.perm.v.userpost.dto.UserDto
+import ru.perm.v.userpost.service.PostService
 import java.util.concurrent.TimeUnit
-
 
 /**
  * Rest-контроллер постов.
@@ -75,8 +69,8 @@ class PostController(private val postService: PostService) {
 
         // Add the fetched post to the cache
         // postCache.put(id, fetchedPost)
-        val userDto = UserDto(-1, "-","-")
-        return PostDto(0,"-","-", userDto)
+        val userDto = UserDto(-1, "-", "-")
+        return PostDto(0, "-", "-", userDto)
     }
 
     /**
@@ -89,7 +83,7 @@ class PostController(private val postService: PostService) {
         // Add the new post to the cache
         // postCache.put(post.id!!, PostDto(post.id, post.title, post.content,  ))
 
-        return PostDto(0, "", "", UserDto(0,"-","-"))
+        return PostDto(0, "", "", UserDto(0, "-", "-"))
     }
 
     /**
@@ -98,12 +92,11 @@ class PostController(private val postService: PostService) {
     @PostMapping("/")
     fun updatePost(@PathVariable id: Long, @RequestBody postDto: PostDto): PostDto {
         val existPost = postService.getById(postDto.id)
-        if(existPost.id.equals(-1L)) {
+        if (existPost.id.equals(-1L)) {
             // throw NotFoundEntityExcpt(format("Post with id %s not found", existPost.id))
         }
-        return PostDto(existPost.id, existPost.title,existPost.content, postDto.author)
+        return PostDto(existPost.id, existPost.title, existPost.content, postDto.author)
     }
-
 
     @DeleteMapping("/{id}")
     fun deletePost(@PathVariable id: Long) {

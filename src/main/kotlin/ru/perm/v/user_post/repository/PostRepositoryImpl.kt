@@ -1,12 +1,12 @@
-package ru.perm.v.user_post.repository
+package ru.perm.v.userpost.repository
 
 import org.springframework.stereotype.Component
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.entity.UserEntity
+import ru.perm.v.userpost.entity.PostEntity
+import ru.perm.v.userpost.entity.UserEntity
 
 // Имплементация вместо Spring Repository. Поэтому, закомментировано @Repository
 // и обозначен просто как @Component
-//@Repository
+// @Repository
 @Component
 class PostRepositoryImpl : PostRepository {
     private val userEmpty = UserEntity(-1L, "-", "-")
@@ -14,13 +14,17 @@ class PostRepositoryImpl : PostRepository {
 
     private val posts = mutableListOf<PostEntity>(
         PostEntity(
-            1L, "TITLE_1", "CONTENT_1",
-            UserEntity(1, "NAME_1", "EMAIL_1")
+            1L,
+            "TITLE_1",
+            "CONTENT_1",
+            UserEntity(1, "NAME_1", "EMAIL_1"),
         ),
         PostEntity(
-            2L, "TITLE_2", "CONTENT_2",
-            UserEntity(2, "NAME_2", "EMAIL_2")
-        )
+            2L,
+            "TITLE_2",
+            "CONTENT_2",
+            UserEntity(2, "NAME_2", "EMAIL_2"),
+        ),
     )
 
     override fun getById(id: Long): PostEntity {

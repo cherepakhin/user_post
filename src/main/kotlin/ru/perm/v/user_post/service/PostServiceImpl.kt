@@ -1,8 +1,8 @@
-package ru.perm.v.user_post.service
+package ru.perm.v.userpost.service
 
 import org.springframework.stereotype.Service
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.repository.PostRepository
+import ru.perm.v.userpost.entity.PostEntity
+import ru.perm.v.userpost.repository.PostRepository
 
 @Service
 open class PostServiceImpl(val postRepository: PostRepository, val userService: UserService) : PostService {

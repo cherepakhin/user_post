@@ -1,4 +1,4 @@
-package ru.perm.v.user_post.service
+package ru.perm.v.userpost.service
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -7,9 +7,9 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.entity.UserEntity
-import ru.perm.v.user_post.repository.PostRepository
+import ru.perm.v.userpost.entity.PostEntity
+import ru.perm.v.userpost.entity.UserEntity
+import ru.perm.v.userpost.repository.PostRepository
 
 internal class PostServiceImplTest {
 
@@ -19,7 +19,7 @@ internal class PostServiceImplTest {
         on { getById(1) } doReturn PostEntity(1, "-", "-", AUTHOR_ENTITY_1)
         on { getAll() } doReturn listOf(
             PostEntity(1, "TITLE_1", "CONTENT_1", AUTHOR_ENTITY_1),
-            PostEntity(2, "TITLE_2", "CONTENT_2", AUTHOR_ENTITY_2)
+            PostEntity(2, "TITLE_2", "CONTENT_2", AUTHOR_ENTITY_2),
         )
     }
     val mockUserService = mock<UserService> {
