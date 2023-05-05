@@ -7,8 +7,8 @@ internal class UserMapperTest {
 
     @Test
     fun toEntityTest() {
-        // val entity = UserDto(1, "name", "email")
+        val entity = UserDto(1, "name", "email")
         //TODO
-        // assertEquals(UserDto(1, "name", "email"), UserMapper.toEntity(entity))
+        assertEquals(UserDto(1, "name", "email"), UserMapper.toEntity(entity))
     }
 }
