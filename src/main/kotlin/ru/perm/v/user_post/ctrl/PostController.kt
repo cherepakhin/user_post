@@ -50,7 +50,7 @@ class PostController(private val postService: PostService) {
      * Обновление сообщения
      */
     @PostMapping("/")
-    fun updatePost(@RequestBody postDto: PostDto): PostDto {
+    fun updatePost(postDto1: Long, @RequestBody postDto: PostDto): PostDto {
         val existPost = postService.getById(postDto.id)
         if(existPost.id.equals(-1L)) {
             throw NotFoundEntityExcpt(format("Post with id %s not found", existPost.id))
