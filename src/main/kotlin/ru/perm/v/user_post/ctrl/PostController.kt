@@ -1,15 +1,11 @@
-package ru.perm.v.user_post.ctrl
+package ru.perm.v.userpost.ctrl
 
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.web.bind.annotation.*
-import ru.perm.v.user_post.dto.PostDto
-import ru.perm.v.user_post.dto.UserDto
-import ru.perm.v.user_post.entity.PostEntity
-import ru.perm.v.user_post.entity.UserEntity
-
-import ru.perm.v.user_post.service.PostService
+import ru.perm.v.userpost.dto.PostDto
+import ru.perm.v.userpost.dto.UserDto
+import ru.perm.v.userpost.service.PostService
 import java.util.concurrent.TimeUnit
-
 
 /**
  * Rest-контроллер постов.
@@ -21,31 +17,31 @@ import java.util.concurrent.TimeUnit
 @RequestMapping("/posts")
 class PostController(private val postService: PostService) {
 
-    private fun PostDto.toPostEntity(): PostEntity {
-        return PostEntity(
-            id = id!!,
-            title = title,
-            content = content,
-            author = UserEntity(
-                id = author.id,
-                name = author.name,
-                email = author.email
-            )
-        )
-    }
+    // private fun PostDto.toPostEntity(): PostEntity {
+    //     return PostEntity(
+    //         id = id!!,
+    //         title = title,
+    //         content = content,
+    //         author = UserEntity(
+    //             id = author.id,
+    //             name = author.name,
+    //             email = author.email
+    //         )
+    //     )
+    // }
 
-    private fun PostEntity.toDto(): PostDto {
-        return PostDto(
-            id = id!!,
-            title = title,
-            content = content,
-            author = UserDto(
-                id = author.id,
-                name = author.name,
-                email = author.email
-            )
-        )
-    }
+    // private fun PostEntity.toDto(): PostDto {
+    //     return PostDto(
+    //         id = id!!,
+    //         title = title,
+    //         content = content,
+    //         author = UserDto(
+    //             id = author.id,
+    //             name = author.name,
+    //             email = author.email
+    //         )
+    //     )
+    // }
     // Create a cache for posts
     val postCache = Caffeine.newBuilder()
         .expireAfterWrite(10, TimeUnit.MINUTES) // expire entries after 10 minutes
@@ -62,19 +58,19 @@ class PostController(private val postService: PostService) {
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): PostDto {
         // Try to get the post from the cache
-        val post = postCache.getIfPresent(id)
+        // val post = postCache.getIfPresent(id)
 
-        if (post != null) {
-            return post.toDto()
-        }
+        // if (post != null) {
+        //     return post.toDto()
+        // }
 
         // If the post is not in the cache, get it from the service
-        val fetchedPost = postService.get(id)
+        // val fetchedPost = postService.get(id)
 
         // Add the fetched post to the cache
-        postCache.put(id, fetchedPost)
-
-        return fetchedPost.toDto()
+        // postCache.put(id, fetchedPost)
+        val userDto = UserDto(-1, "-", "-")
+        return PostDto(0, "-", "-", userDto)
     }
 
     /**
@@ -82,12 +78,12 @@ class PostController(private val postService: PostService) {
      */
     @PutMapping("/")
     fun createPost(@RequestBody postDto: PostDto): PostDto {
-        val post = postService.create(postDto.toPost())
+        // val post = postService.create(postDto.toPost())
 
         // Add the new post to the cache
-        postCache.put(post.id!!, post)
+        // postCache.put(post.id!!, PostDto(post.id, post.title, post.content,  ))
 
-        return post.toDto()
+        return PostDto(0, "", "", UserDto(0, "-", "-"))
     }
 
     /**
@@ -96,12 +92,11 @@ class PostController(private val postService: PostService) {
     @PostMapping("/")
     fun updatePost(@PathVariable id: Long, @RequestBody postDto: PostDto): PostDto {
         val existPost = postService.getById(postDto.id)
-        if(existPost.id.equals(-1L)) {
-            throw NotFoundEntityExcpt(format("Post with id %s not found", existPost.id))
+        if (existPost.id.equals(-1L)) {
+            // throw NotFoundEntityExcpt(format("Post with id %s not found", existPost.id))
         }
-        return PostDto(existPost.id, existPost.title,existPost.content, postDto.author)
+        return PostDto(existPost.id, existPost.title, existPost.content, postDto.author)
     }
-
 
     @DeleteMapping("/{id}")
     fun deletePost(@PathVariable id: Long) {
