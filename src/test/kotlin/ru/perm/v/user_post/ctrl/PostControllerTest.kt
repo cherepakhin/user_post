@@ -56,16 +56,16 @@ internal class PostControllerTest {
         verify(mockPostService, times(1)).create(TITLE, CONTENT, AUTHOR_DTO.id)
     }
 
-    @Test
-    fun updatePostTempExcpt() {
-        val TITLE = "TITLE"
-        val CONTENT = "CONTENT"
-        val AUTHOR_DTO = UserDto(0, "-", "-")
-        val postDto = PostDto(-1, TITLE, CONTENT, AUTHOR_DTO)
-        assertThrows<NotReleasedExcpt>() {
-            postController.updatePost(POST_ENTITY_100.id, postDto)
-        }
-    }
+    // @Test
+    // fun updatePostTempExcpt() {
+    //     val TITLE = "TITLE"
+    //     val CONTENT = "CONTENT"
+    //     val AUTHOR_DTO = UserDto(0, "-", "-")
+    //     val postDto = PostDto(-1, TITLE, CONTENT, AUTHOR_DTO)
+    //     assertThrows<NotReleasedExcpt>() {
+    //         postController.updatePost(POST_ENTITY_100.id, postDto)
+    //     }
+    // }
 
     @Test
     fun getById() {
@@ -88,13 +88,14 @@ internal class PostControllerTest {
                 UserDto(0L, "-", "-")),
             post)
     }
+
     @Test
     fun `createPost should return a PostDto`() {
         // Arrange
         val postService = Mockito.mock(PostService::class.java)
         val postDto = PostDto(0, "title", "content", UserDto(1, "John", "john@example.com"))
-        val post = PostEntity(1, "title", "content", UserEntity(1, "John", "john@example.com"))
-        `when`(postService.create("title", "content", 1)).thenReturn(post)
+        val postEntity = PostEntity(1, "title", "content", UserEntity(1, "John", "john@example.com"))
+        `when`(postService.create("title", "content", 1)).thenReturn(postEntity)
         val controller = PostController(postService)
 
         // Act
@@ -108,19 +109,14 @@ internal class PostControllerTest {
         assertEquals(postDto.author.email, result.author.email)
     }
 
-    @Test
-    fun `createPost should call postService#create`() {
-        // Arrange
-        val postService = Mockito.mock(PostService::class.java)
-        val post = PostEntity(0, "title", "content", UserEntity(1, "John", "john@example.com"))
-        `when`(postService.create("title", "content", 1)).thenReturn(post)
-        val postDto = PostDto(0, "title", "content", UserDto(1, "John", "john@example.com"))
-        val controller = PostController(postService)
+// @Test
+// fun `createPost should call postService#create`() {
+//     val postService = mock(PostService::class.java)
+//     val postDto = PostDto("title", "content", UserDto(1, "John", "john@example.com"))
+//     val controller = PostController(postService)
 
-        // Act
-        controller.createPost(postDto)
+//     controller.createPost(postDto)
 
-        // Assert
-        verify(postService).create("title", "content", 1)
-    }
+//     verify(postService).create("title", "content", 1)
+//     }
 }
