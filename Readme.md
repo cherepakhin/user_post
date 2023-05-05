@@ -4,6 +4,12 @@
 
 Для тестов использован [Mockito](https://site.mockito.org/)
 
+### Запуск ktlint (форматироание)
+
+```shell
+ktlint -F
+```
+
 ### Запуск тестов
 
 ```shell
